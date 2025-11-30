@@ -1,6 +1,7 @@
 import os
 import shutil
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
 from pathlib import Path
 import numpy as np
 from PIL import Image
@@ -359,9 +360,6 @@ with torch.no_grad():
 
 accuracy = 100 * correct / total
 print("Test Accuracy:", accuracy)
-
-from sklearn.metrics import confusion_matrix
-import numpy as np
 
 all_preds = []
 all_labels = []
