@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Test Single Image - VS Code Version
-"""
-
 import os
 import torch
 from PIL import Image

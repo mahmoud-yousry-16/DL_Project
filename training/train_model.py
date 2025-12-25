@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Fatigue Detection Model Training - VS Code Version
-Converted from Colab Notebook
-"""
-
 import os
 import torch
 from torch.utils.data import Dataset, DataLoader
