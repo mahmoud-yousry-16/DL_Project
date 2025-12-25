@@ -16,14 +16,14 @@ MODEL_PATH = os.path.join(PROJECT_ROOT, 'server', 'best_fatigue_detection_model.
 
 # التحقق من وجود الموديل
 if not os.path.exists(MODEL_PATH):
-    raise FileNotFoundError(f"\n❌ Model not found!\n   Path: {MODEL_PATH}\n   Please train the model first!")
+    raise FileNotFoundError(f"\nModel not found!\n   Path: {MODEL_PATH}\n   Please train the model first!")
 
 # ============================================
 # Device & Model Setup
 # ============================================
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(f"🖥️  Using device: {device}\n")
+print(f"Using device: {device}\n")
 
 # Model architecture
 def get_model(num_classes=2):
@@ -44,12 +44,12 @@ def get_model(num_classes=2):
     return model
 
 # Load model
-print("📦 Loading model...")
+print("Loading model...")
 model = get_model(num_classes=2)
 model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
 model.to(device)
 model.eval()
-print("✅ Model loaded successfully!\n")
+print("Model loaded successfully!\n")
 
 # Image transformations
 inference_transforms = transforms.Compose([
@@ -65,16 +65,16 @@ class_names = ['Active', 'Fatigue']
 # ============================================
 
 print("="*70)
-print("🖼️  IMAGE INFERENCE TEST")
+print("IMAGE INFERENCE TEST")
 print("="*70)
 
 # حط مسار الصورة هنا
 IMAGE_PATH = input("\nEnter image path (or drag & drop the image here): ").strip().strip('"')
 
 if not os.path.exists(IMAGE_PATH):
-    raise FileNotFoundError(f"\n❌ Image not found: {IMAGE_PATH}")
+    raise FileNotFoundError(f"\nImage not found: {IMAGE_PATH}")
 
-print(f"\n📂 Loading image: {IMAGE_PATH}")
+print(f"\nLoading image: {IMAGE_PATH}")
 
 # Load and display image
 image = Image.open(IMAGE_PATH).convert("RGB")
@@ -92,7 +92,7 @@ input_tensor = inference_transforms(image)
 input_batch = input_tensor.unsqueeze(0).to(device)
 
 # Prediction
-print("\n🔮 Running prediction...")
+print("\nRunning prediction...")
 with torch.no_grad():
     output = model(input_batch)
     probabilities = torch.nn.functional.softmax(output[0], dim=0)
@@ -103,11 +103,11 @@ confidence_percent = confidence.item() * 100
 
 # Display results
 print("\n" + "="*70)
-print("📊 PREDICTION RESULTS")
+print("PREDICTION RESULTS")
 print("="*70)
-print(f"🎯 Prediction: {predicted_label}")
-print(f"📈 Confidence: {confidence_percent:.2f}%")
-print("\n📊 Class Probabilities:")
+print(f"Prediction: {predicted_label}")
+print(f"Confidence: {confidence_percent:.2f}%")
+print("\nClass Probabilities:")
 
 for i, name in enumerate(class_names):
     prob = probabilities[i].item() * 100

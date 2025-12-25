@@ -28,27 +28,27 @@ TEST_DIR = os.path.join(DATA_ROOT, 'test')
 MODEL_SAVE_PATH = os.path.join(PROJECT_ROOT, 'server', 'best_fatigue_detection_model.pth')
 
 print("\n" + "="*70)
-print("🔍 CHECKING PATHS...")
+print("CHECKING PATHS...")
 print("="*70)
-print(f"📂 Project Root: {PROJECT_ROOT}")
-print(f"📂 Data Root: {DATA_ROOT}")
-print(f"📂 Train Directory: {TRAIN_DIR}")
-print(f"📂 Test Directory: {TEST_DIR}")
-print(f"💾 Model Save Path: {MODEL_SAVE_PATH}")
+print(f"Project Root: {PROJECT_ROOT}")
+print(f"Data Root: {DATA_ROOT}")
+print(f"Train Directory: {TRAIN_DIR}")
+print(f"Test Directory: {TEST_DIR}")
+print(f"Model Save Path: {MODEL_SAVE_PATH}")
 
 # التحقق من وجود المجلدات
 if not os.path.exists(TRAIN_DIR):
-    raise FileNotFoundError(f"\n❌ ERROR: Train folder not found!\n   Path: {TRAIN_DIR}\n   Please create: data/images/train/")
+    raise FileNotFoundError(f"\n ERROR: Train folder not found!\n   Path: {TRAIN_DIR}\n   Please create: data/images/train/")
 if not os.path.exists(TEST_DIR):
-    raise FileNotFoundError(f"\n❌ ERROR: Test folder not found!\n   Path: {TEST_DIR}\n   Please create: data/images/test/")
+    raise FileNotFoundError(f"\n ERROR: Test folder not found!\n   Path: {TEST_DIR}\n   Please create: data/images/test/")
 
 # إنشاء مجلد server إذا لم يكن موجوداً
 server_dir = os.path.dirname(MODEL_SAVE_PATH)
 if not os.path.exists(server_dir):
     os.makedirs(server_dir)
-    print(f"✅ Created server directory: {server_dir}")
+    print(f"Created server directory: {server_dir}")
 
-print("✅ All paths verified successfully!\n")
+print("All paths verified successfully!\n")
 
 # ============================================
 # Data Cleaning & Analysis
@@ -56,7 +56,7 @@ print("✅ All paths verified successfully!\n")
 
 # Device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(f"🖥️  Using device: {device}\n")
+print(f"Using device: {device}\n")
 
 # Hyperparameters
 IMG_SIZE = 224
@@ -120,7 +120,7 @@ class FatigueDataset(Dataset):
 
 # Create Datasets
 print("="*70)
-print("📊 LOADING DATASETS...")
+print("LOADING DATASETS...")
 print("="*70)
 
 train_dataset = FatigueDataset(
@@ -150,14 +150,14 @@ test_loader = DataLoader(
     pin_memory=True
 )
 
-print("✅ Preprocessing completed\n")
+print("Preprocessing completed\n")
 
 # ============================================
 # Model Design
 # ============================================
 
 print("="*70)
-print("🏗️  MODEL DESIGN...")
+print("MODEL DESIGN...")
 print("="*70)
 
 def get_model(device, num_classes=2):
@@ -179,7 +179,7 @@ def get_model(device, num_classes=2):
 
 # Create model
 model = get_model(device, num_classes=2)
-print("✅ Model design completed\n")
+print("Model design completed\n")
 
 # ============================================
 # Model Training
@@ -212,11 +212,11 @@ best_epoch = 0
 patience_counter = 0
 
 print("="*70)
-print("🚀 STARTING TRAINING...")
+print("STARTING TRAINING...")
 print("="*70)
 
 for epoch in range(EPOCHS):
-    print(f"\n📍 Epoch {epoch+1}/{EPOCHS}")
+    print(f"\nEpoch {epoch+1}/{EPOCHS}")
     print("-" * 70)
 
     # Training
@@ -264,7 +264,7 @@ for epoch in range(EPOCHS):
     val_acc = correct / total
 
     current_lr = optimizer.param_groups[0]['lr']
-    print(f"\n📊 Results:")
+    print(f"\nResults:")
     print(f"   LR: {current_lr:.2e}")
     print(f"   Train Loss: {train_loss:.4f} | Train Acc: {train_acc:.4f}")
     print(f"   Val Loss: {val_loss:.4f} | Val Acc: {val_acc:.4f}")
@@ -273,20 +273,20 @@ for epoch in range(EPOCHS):
         best_acc = val_acc
         best_epoch = epoch + 1
         torch.save(model.state_dict(), MODEL_SAVE_PATH)
-        print(f"   💾 Saved New Best Model (Val Acc: {best_acc:.4f})")
-        print(f"   📁 Location: {MODEL_SAVE_PATH}")
+        print(f"Saved New Best Model (Val Acc: {best_acc:.4f})")
+        print(f"Location: {MODEL_SAVE_PATH}")
         patience_counter = 0
     else:
         patience_counter += 1
 
     if patience_counter >= PATIENCE:
-        print(f"\n⏹️  Early Stopping! No improvement for {PATIENCE} epochs.")
+        print(f"\nEarly Stopping! No improvement for {PATIENCE} epochs.")
         break
 
 print("\n" + "="*70)
-print("✅ TRAINING FINISHED!")
-print(f"🏆 Best Validation Accuracy: {best_acc:.4f} at Epoch {best_epoch}")
-print(f"💾 Model saved at: {MODEL_SAVE_PATH}")
+print("TRAINING FINISHED!")
+print(f"Best Validation Accuracy: {best_acc:.4f} at Epoch {best_epoch}")
+print(f"Model saved at: {MODEL_SAVE_PATH}")
 print("="*70)
 
 # ============================================
@@ -294,12 +294,12 @@ print("="*70)
 # ============================================
 
 print("\n" + "="*70)
-print("🧪 MODEL EVALUATION...")
+print("MODEL EVALUATION...")
 print("="*70)
 
 model.eval()
 model.load_state_dict(torch.load(MODEL_SAVE_PATH))
-print("✅ Loaded the best saved model for evaluation.\n")
+print("Loaded the best saved model for evaluation.\n")
 
 all_preds = []
 all_labels = []
@@ -319,19 +319,19 @@ disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=['Active', 'Fa
 disp.plot(cmap='Blues', values_format='d')
 plt.title('Confusion Matrix')
 plt.savefig(os.path.join(PROJECT_ROOT, 'confusion_matrix.png'))
-print(f"📊 Confusion matrix saved to: {PROJECT_ROOT}/confusion_matrix.png")
+print(f"Confusion matrix saved to: {PROJECT_ROOT}/confusion_matrix.png")
 plt.show()
 
 # Classification Report
-print("\n📈 Classification Report:")
+print("\nClassification Report:")
 print("="*70)
 print(classification_report(all_labels, all_preds,
                             target_names=['Active', 'Fatigue'],
                             digits=4))
 
 print("\n" + "="*70)
-print("✅ ALL DONE!")
+print("ALL DONE!")
 print("="*70)
-print(f"🎯 You can now use the model at: {MODEL_SAVE_PATH}")
-print("🚀 Run the Flask API from the 'server' folder to use it!")
+print(f"You can now use the model at: {MODEL_SAVE_PATH}")
+print("Run the Flask API from the 'server' folder to use it!")
 print("="*70)
