@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام كشف الإرهاق - Fatigue Detection</title>
+    <Fatigue>Fatigue Detection</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>🔍 نظام كشف الإرهاق</h1>
+        <h1>Fatigue Detection System</h1>
         <p class="subtitle">Fatigue Detection System</p>
 
         <div class="api-config">
-            <label for="apiUrl">🔗 API URL (من Colab ngrok):</label>
-            <input type="text" id="apiUrl" placeholder="مثال: https://xxxx-xx-xxx-xxx-xx.ngrok-free.app" value="">
+            <label for="apiUrl">🔗 API URL (from Colab ngrok):</label>
+            <input type="text" id="apiUrl" placeholder="example: https://xxxx-xx-xxx-xxx-xx.ngrok-free.app" value="">
         </div>
 
         <div class="upload-section" id="uploadSection">
             <div class="upload-icon">📸</div>
             <div class="upload-text">
-                <strong>اضغط لرفع صورة</strong> أو اسحب الصورة هنا
+                <strong>Click to upload the image</strong> Or drag the image here
                 <br>
                 <small>JPG, PNG (Max 10MB)</small>
             </div>
@@ -28,16 +28,16 @@
 
         <div class="preview-section" id="previewSection">
             <img id="imagePreview" class="image-preview" alt="Preview">
-            <button class="analyze-btn" id="analyzeBtn">تحليل الصورة 🚀</button>
+            <button class="analyze-btn" id="analyzeBtn">Image Analysis</button>
         </div>
 
         <div class="loading" id="loading">
             <div class="spinner"></div>
-            <p>جاري التحليل...</p>
+            <p>Analysis underway</p>
         </div>
 
         <div class="results" id="results">
-            <h2 class="result-title">📊 نتائج التحليل</h2>
+            <h2 class="result-title">Analysis Result</h2>
             <div class="prediction">
                 <div class="prediction-label" id="predictionLabel">-</div>
                 <div class="confidence" id="confidence">-</div>
@@ -45,7 +45,7 @@
             <div class="probabilities">
                 <div class="prob-item">
                     <div class="prob-label">
-                        <span>✅ نشيط (Active)</span>
+                        <span>Active</span>
                         <span id="activePercent">0%</span>
                     </div>
                     <div class="prob-bar">
@@ -54,7 +54,7 @@
                 </div>
                 <div class="prob-item">
                     <div class="prob-label">
-                        <span>😴 مرهق (Fatigue)</span>
+                        <span>Fatigue</span>
                         <span id="fatiguePercent">0%</span>
                     </div>
                     <div class="prob-bar">

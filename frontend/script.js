@@ -62,13 +62,13 @@ analyzeBtn.addEventListener('click', async () => {
     
     // Validate API URL
     if (!apiUrl) {
-        showError('من فضلك أدخل API URL من Colab!');
+        showError('Please enter an API URL!');
         return;
     }
 
     // Validate image selection
     if (!selectedImage) {
-        showError('من فضلك اختر صورة أولاً!');
+        showError('Please choose an image first');
         return;
     }
 
@@ -96,10 +96,10 @@ analyzeBtn.addEventListener('click', async () => {
         if (data.success) {
             displayResults(data);
         } else {
-            showError(data.error || 'حدث خطأ في التحليل');
+            showError(data.error || 'An error occurred in the analysis');
         }
     } catch (error) {
-        showError('فشل الاتصال بالـ API. تأكد من:\n1. API URL صحيح\n2. Flask شغال على Colab\n3. ngrok شغال');
+        showError('Failed to connect to the API. Make sure that:\n1. The API URL is correct\n2. Flask is running on VSCode\n3. ngrok is running');
         console.error('Error:', error);
     } finally {
         // Hide loading state
@@ -118,11 +118,11 @@ function displayResults(data) {
     const fatigueFill = document.getElementById('fatigueFill');
 
     // Set prediction text
-    predictionLabel.textContent = data.prediction === 'Active' ? '✅ نشيط' : '😴 مرهق';
+    predictionLabel.textContent = data.prediction === 'Active' ? 'Active' : 'Fatigue';
     predictionLabel.className = 'prediction-label ' + (data.prediction === 'Active' ? 'active' : 'fatigue');
     
     // Set confidence
-    confidence.textContent = `الثقة: ${data.confidence.toFixed(2)}%`;
+    confidence.textContent = `Confidence: ${data.confidence.toFixed(2)}%`;
 
     // Get probabilities
     const activeProb = data.probabilities.Active;

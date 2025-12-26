@@ -53,7 +53,7 @@ MODEL_PATH = os.path.join(os.path.dirname(__file__), 'best_fatigue_detection_mod
 # التحقق من وجود الموديل
 if not os.path.exists(MODEL_PATH):
     raise FileNotFoundError(
-        f"\n❌ Model file not found!\n"
+        f"\nModel file not found!\n"
         f"   Expected location: {MODEL_PATH}\n\n"
         f"   Please do one of the following:\n"
         f"   1. Train the model first: cd training && python train_model.py\n"
@@ -64,7 +64,7 @@ model = get_model(num_classes=2)
 model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
 model.to(device)
 model.eval()
-print(f"✅ Model loaded successfully from: {MODEL_PATH}")
+print(f"Model loaded successfully from: {MODEL_PATH}")
 
 @app.route('/', methods=['GET'])
 def home():
@@ -130,6 +130,6 @@ def predict():
 
 if __name__ == '__main__':
     print("\n" + "="*50)
-    print("🚀 Starting Fatigue Detection API...")
+    print("Starting Fatigue Detection API...")
     print("="*50)
     app.run(host='0.0.0.0', port=5000, debug=True)
