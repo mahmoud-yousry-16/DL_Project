@@ -215,16 +215,16 @@ fatigue-detection/
 ### Training Performance
 | Metric | Value |
 |--------|-------|
-| Best Validation Accuracy | [INSERT]% |
-| Training Accuracy | [INSERT]% |
-| Final Training Loss | [INSERT] |
-| Final Validation Loss | [INSERT] |
+| Best Validation Accuracy | [95.34]% |
+| Training Accuracy | [95.07]% |
+| Final Training Loss | [.2334] |
+| Final Validation Loss | [.2860] |
 
 ### Test Set Performance
 | Class | Precision | Recall | F1-Score |
 |-------|-----------|--------|----------|
-| Active | [INSERT]% | [INSERT]% | [INSERT]% |
-| Fatigue | [INSERT]% | [INSERT]% | [INSERT]% |
+| Active | [95.85]% | [96.16]% | [96.01]% |
+| Fatigue | [93.82]% | [93.33]% | [93.57]% 
 
 
 
