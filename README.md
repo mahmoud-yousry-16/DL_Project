@@ -171,7 +171,7 @@ fatigue-detection/
 
 ---
 
-### Step 4: Model Design, Training & Evaluation
+### Step 4: Model Design & Training
 **Member**: [Ala'a & Malak]
 
 **Responsibilities**:
@@ -187,7 +187,7 @@ fatigue-detection/
 
 ---
 
-### Step 5: Model Optimization
+### Step 5: Model Evaluation & Optimization
 **Member**: [Hanaa]
 
 **Responsibilities**:
